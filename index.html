@@ -1,59 +1,302 @@
+
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Pihcoin (PIH) — an ERC-20 token on Ethereum Mainnet with a fixed supply of 1,000,000,000 PIH.">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+  <meta name="description"
+        content="Pihcoin (PIH) is an ERC-20 token on Ethereum Mainnet with a fixed supply of 1,000,000,000 PIH.">
+
   <meta name="theme-color" content="#071523">
+
   <title>Pihcoin (PIH) | Ethereum ERC-20 Token</title>
+
   <link rel="icon" type="image/png" href="logo-64.png">
+
   <style>
-    :root { color-scheme: dark; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    * {box-sizing:border-box}
-    body {margin:0; min-height:100vh; color:#f2fbff; background:radial-gradient(ellipse at 50% 18%, #123a48 0%, #081a2c 38%, #040912 82%);}
-    .wrap {max-width:850px; margin:0 auto; padding:32px 22px 48px;}
-    header {display:flex; align-items:center; justify-content:space-between; gap:20px; font-size:14px; color:#99b2c3;}
-    header .brand {font-weight:800; letter-spacing:.10em; color:#b9fff7;}
-    .pill {border:1px solid #215f69; border-radius:100px; padding:8px 12px;}
-    main {text-align:center; margin:60px auto 38px;}
-    .logo {width:min(245px,65vw); aspect-ratio:1; border-radius:24%; box-shadow:0 0 65px #18dcd71c;}
-    h1 {font-size:clamp(42px,8vw,72px); line-height:1.08; letter-spacing:-.05em; margin:28px 0 8px;}
-    .ticker {font-size:clamp(16px,3vw,21px); color:#7ef9ed; font-weight:700; letter-spacing:.16em; margin:0 0 22px;}
-    .lead {max-width:640px; margin:0 auto; line-height:1.7; font-size:17px; color:#b8cad4;}
-    .cards {display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:40px 0 24px;}
-    .card {padding:22px 15px;border:1px solid #255064;background:#0c2133c9;border-radius:18px;text-align:center;}
-    .k {font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:#8eacbb; margin-bottom:11px;}
-    .v {font-size:clamp(15px,2.8vw,21px);font-weight:700;color:#f4ffff;}
-    .details {padding:24px; border:1px solid #255064; background:#0c2133be;border-radius:18px; text-align:left;}
-    h2 {font-size:20px;margin:0 0 13px;}
-    .address {font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;overflow-wrap:anywhere;font-size:14px;color:#8bf8ec;line-height:1.6;}
-    a {color:#7cf7e9;text-decoration:none}
-    a:hover {text-decoration:underline}
-    .button {display:inline-block;border:1px solid #39bbb7;padding:12px 18px;border-radius:12px;margin-top:17px;font-weight:650}
-    footer {text-align:center; color:#829bab; font-size:13px; margin-top:35px;line-height:1.7}
-    @media(max-width:560px){main{margin:40px auto 20px}.cards{grid-template-columns:1fr}.wrap{padding:24px 16px 40px}}
+    :root {
+      color-scheme: dark;
+      font-family: system-ui, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: #f2fbff;
+      background: radial-gradient(
+        ellipse at 50% 18%,
+        #123a48 0%,
+        #081a2c 38%,
+        #040912 82%
+      );
+    }
+
+    .wrap {
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 32px 22px 48px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      color: #99b2c3;
+      font-size: 14px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: #b9fff7;
+    }
+
+    .pill {
+      border: 1px solid #215f69;
+      border-radius: 100px;
+      padding: 8px 12px;
+    }
+
+    main {
+      text-align: center;
+      margin: 60px auto 38px;
+    }
+
+    /* КВАДРАТНЫЙ ЛОГОТИП */
+    .logo {
+      display: block;
+      width: 256px;
+      height: 256px;
+      max-width: 70vw;
+      max-height: 70vw;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      margin: 0 auto;
+      border-radius: 24%;
+      box-shadow:
+        0 0 45px rgba(0,255,225,0.12),
+        0 0 85px rgba(0,255,225,0.06);
+    }
+
+    h1 {
+      font-size: clamp(42px, 8vw, 72px);
+      line-height: 1.08;
+      letter-spacing: -0.05em;
+      margin: 28px 0 8px;
+    }
+
+    .ticker {
+      font-size: 21px;
+      color: #7ef9ed;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      margin: 0 0 22px;
+    }
+
+    .lead {
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-size: 17px;
+      color: #b8cad4;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 40px 0 24px;
+    }
+
+    .card {
+      padding: 22px 15px;
+      border: 1px solid #255064;
+      background: rgba(12,33,51,0.8);
+      border-radius: 18px;
+      text-align: center;
+    }
+
+    .k {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #8eacbb;
+      margin-bottom: 11px;
+    }
+
+    .v {
+      font-size: 20px;
+      font-weight: 700;
+      color: #f4ffff;
+    }
+
+    .details {
+      padding: 24px;
+      border: 1px solid #255064;
+      background: rgba(12,33,51,0.75);
+      border-radius: 18px;
+      text-align: left;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 0 0 13px;
+    }
+
+    .address {
+      font-family: monospace;
+      overflow-wrap: anywhere;
+      font-size: 14px;
+      color: #8bf8ec;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #7cf7e9;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .button {
+      display: inline-block;
+      border: 1px solid #39bbb7;
+      padding: 12px 18px;
+      border-radius: 12px;
+      margin-top: 17px;
+      font-weight: 650;
+    }
+
+    footer {
+      text-align: center;
+      color: #829bab;
+      font-size: 13px;
+      margin-top: 35px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        padding: 24px 16px 40px;
+      }
+
+      header {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      main {
+        margin: 40px auto 20px;
+      }
+
+      .logo {
+        width: 220px;
+        height: 220px;
+        max-width: 70vw;
+        max-height: 70vw;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .v {
+        font-size: 18px;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <header><span class="brand">PIHCOIN</span><span class="pill">Ethereum Mainnet · ERC-20</span></header>
+
+    <header>
+      <span class="brand">PIHCOIN</span>
+      <span class="pill">
+        Ethereum Mainnet · ERC-20
+      </span>
+    </header>
+
     <main>
-      <img src="logo.png" alt="Pihcoin neon turquoise token logo" class="logo" width="256" height="256">
+      <img
+        src="logo.png"
+        alt="Pihcoin Logo"
+        class="logo"
+        width="256"
+        height="256"
+      >
+
       <h1>Pihcoin</h1>
+
       <p class="ticker">PIH</p>
-      <p class="lead">Pihcoin (PIH) is an ERC-20 token on the Ethereum blockchain. Its fixed supply of one billion tokens was created at deployment. The contract has no additional minting function.</p>
+
+      <p class="lead">
+        Pihcoin (PIH) is an ERC-20 token
+        on the Ethereum blockchain.
+        Its fixed supply of one billion tokens
+        was created at deployment.
+        The contract has no additional
+        minting function.
+      </p>
     </main>
+
     <div class="cards">
-      <section class="card"><div class="k">Token standard</div><div class="v">ERC-20</div></section>
-      <section class="card"><div class="k">Total supply</div><div class="v">1,000,000,000 PIH</div></section>
-      <section class="card"><div class="k">Network</div><div class="v">Ethereum</div></section>
+
+      <section class="card">
+        <div class="k">Token Standard</div>
+        <div class="v">ERC-20</div>
+      </section>
+
+      <section class="card">
+        <div class="k">Total Supply</div>
+        <div class="v">1,000,000,000 PIH</div>
+      </section>
+
+      <section class="card">
+        <div class="k">Network</div>
+        <div class="v">Ethereum Mainnet</div>
+      </section>
+
     </div>
+
     <section class="details">
-      <h2>Verified smart contract</h2>
-      <div class="address">0x687FE7D7247a63E338fF7d089b9434C155B200D8</div>
-      <a class="button" href="https://etherscan.io/token/0x687FE7D7247a63E338fF7d089b9434C155B200D8" target="_blank" rel="noopener noreferrer">View PIH on Etherscan ↗</a>
+      <h2>Verified Smart Contract</h2>
+
+      <div class="address">
+        0x687FE7D7247a63E338fF7d089b9434C155B200D8
+      </div>
+
+      <a
+        class="button"
+        href="https://etherscan.io/token/0x687FE7D7247a63E338fF7d089b9434C155B200D8"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View PIH on Etherscan
+      </a>
     </section>
-    <footer>Pihcoin is an independent token project. This website describes the contract; it does not represent an exchange listing or promise a market price.<br>© Pihcoin</footer>
+
+    <footer>
+      Pihcoin is an independent ERC-20 token
+      project on Ethereum Mainnet.
+
+      <p>
+        No exchange listing or market price
+        is guaranteed.
+      </p>
+
+      <p>© Pihcoin</p>
+    </footer>
+
   </div>
 </body>
 </html>
