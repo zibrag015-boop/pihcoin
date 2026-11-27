@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" role="img" aria-labelledby="pih-title pih-description">
+  <title id="pih-title">Pihcoin</title>
+  <desc id="pih-description">The Pihcoin turquoise interlocking symbol on a luminous pale coin and rounded midnight-blue background. Recreated entirely with vector paths, circles, and gradients.</desc>
+  <defs>
+    <clipPath id="pih-square">
+      <rect x="0.5" y="0.5" width="255" height="255" rx="56"/>
+    </clipPath>
+    <radialGradient id="pih-background" cx="50%" cy="48%" r="69%">
+      <stop offset="0" stop-color="#004c56"/>
+      <stop offset="0.48" stop-color="#001825"/>
+      <stop offset="0.8" stop-color="#000918"/>
+      <stop offset="1" stop-color="#00040d"/>
+    </radialGradient>
+    <radialGradient id="pih-face" cx="40%" cy="25%" r="85%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.45" stop-color="#faffff"/>
+      <stop offset="0.8" stop-color="#def1f4"/>
+      <stop offset="1" stop-color="#eaf8fa"/>
+    </radialGradient>
+    <linearGradient id="pih-symbol" x1="88" y1="87" x2="165" y2="163" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00c7b4"/>
+      <stop offset="0.38" stop-color="#009c9d"/>
+      <stop offset="0.68" stop-color="#00898f"/>
+      <stop offset="1" stop-color="#00b2a7"/>
+    </linearGradient>
+    <filter id="pih-halo" x="-65%" y="-65%" width="230%" height="230%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+    <filter id="pih-rim-glow" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="pih-symbol-glow" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="2.6"/>
+    </filter>
+    <path id="pih-lower" d="M 95 105 L 146 154 L 137 165 L 115 144 L 95 165 L 85 155 L 105 135 L 85 115 Z"/>
+    <path id="pih-upper" d="M 115 85 L 136 106 L 156 85 L 166 95 L 146 116 L 166 136 L 156 146 L 105 96 Z"/>
+  </defs>
+  <g transform="scale(0.125)">
+  <rect width="256" height="256" fill="#fdfdfe"/>
+  <g clip-path="url(#pih-square)">
+    <rect width="256" height="256" fill="url(#pih-background)"/>
+    <circle cx="127.5" cy="124.5" r="70" fill="none" stroke="#00e7d7" stroke-width="10" opacity="0.75" filter="url(#pih-halo)"/>
+    <circle cx="127.5" cy="124.5" r="69.3" fill="url(#pih-face)" stroke="#00fff0" stroke-width="2" filter="url(#pih-rim-glow)"/>
+    <circle cx="127.5" cy="124.5" r="67.8" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.85"/>
+    <g fill="#00f8df" stroke="#00f8df" stroke-width="4" stroke-linejoin="round" filter="url(#pih-symbol-glow)">
+      <use href="#pih-lower"/>
+      <use href="#pih-upper"/>
+    </g>
+    <g fill="url(#pih-symbol)" stroke="#edffff" stroke-width="1.5" stroke-linejoin="round">
+      <use href="#pih-lower"/>
+      <use href="#pih-upper"/>
+    </g>
+  </g>
+  </g>
+</svg>
