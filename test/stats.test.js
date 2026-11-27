@@ -10,11 +10,11 @@ function claim(recipient = "11", amount = AMOUNT, block = 12, transaction = "aa"
   return { address: AIRDROP, topics: [CLAIM_TOPIC, "0x" + recipient.repeat(20).padStart(64, "0")], data: word(amount), blockNumber: "0x" + block.toString(16), transactionHash: "0x" + transaction.repeat(32), logIndex: "0x0", removed: false };
 }
 function chainFixture() {
-  const state = { head: 22, logs: [claim()], balance: 9n * AMOUNT, blockHash: "0x" + "bb".repeat(32), fail: false, failPrimary: false, mismatch: false, requests: [] };
+  const state = { head: 22, logs: [claim()], balance: 9n * AMOUNT, blockHash: "0x" + "bb".repeat(32), fail: false, failOnce: false, mismatch: false, requests: [] };
   async function fetcher(url, options) {
     if (url === "airdrop-config.json") return { ok: true, json: async () => config };
     const req = JSON.parse(options.body); state.requests.push({ url, ...req });
-    if (state.fail || (state.failPrimary && url.includes("publicnode"))) throw new Error("Offline");
+    if (state.fail || (state.failOnce && !state.failedOnce)) { state.failedOnce = true; throw new Error("Offline"); }
     let result;
     switch (req.method) {
       case "eth_chainId": result = "0x1"; break;
@@ -62,10 +62,10 @@ test("withdrawals and top-ups cannot fabricate claimed wallets; all calls share 
   assert.ok(f.state.requests.filter((r) => r.method === "eth_call").every((r) => r.params[1] === "0x14"));
   assert.ok(f.state.requests.filter((r) => r.method === "eth_getLogs").every((r) => r.params[0].topics[0] === CLAIM_TOPIC));
 });
-test("fallback reads a whole verified snapshot from a second RPC", async () => {
-  const f = chainFixture(); f.state.failPrimary = true;
+test("a transient RPC failure restarts a whole verified snapshot", async () => {
+  const f = chainFixture(); f.state.failOnce = true;
   const result = await createStatsReader(f.fetcher)(config);
-  assert.equal(result.claimed, 1); assert.match(result.endpoint, /llamarpc/);
+  assert.equal(result.claimed, 1); assert.match(result.endpoint, /publicnode/);
 });
 test("a reorg invalidates cached claims instead of accumulating phantom claims", async () => {
   const f = chainFixture(), load = createStatsReader(f.fetcher);

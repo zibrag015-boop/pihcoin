@@ -26,7 +26,7 @@ node --test test/*.test.js
 
 The Solidity checks cover exact awards, repeat-claim rejection, independent addresses, failed transfers, empty reserves, unauthorized withdrawals, and rejected ETH payments. The JavaScript checks cover transaction contents, network switching, insufficient ETH, repeat claims, rejection, pending transactions and page reloads, and failed receipts.
 
-Additional tests cover EN/RU completeness, exact integer formatting, RPC fallback, event deduplication, reorg recovery, and retaining labeled stale statistics after an RPC failure. Existing contracts are not modified by the philosophy/statistics update.
+Additional tests cover EN/RU completeness, exact integer formatting, RPC retry, event deduplication, reorg recovery, and retaining labeled stale statistics after an RPC failure. Existing contracts are not modified by the philosophy/statistics update.
 
 ## Public statistics and languages
 
@@ -34,7 +34,7 @@ Additional tests cover EN/RU completeness, exact integer formatting, RPC fallbac
 
 `stats.js` reads the deployed contract's `Claimed` events starting at `deploymentBlock` in `airdrop-config.json`. Claimed addresses and awarded PIH are calculated from those events, not by subtracting the remaining balance from the initial funding. PIH balance and `availableClaims()` are read at the same block (two blocks behind the current head), and the block hash is checked for consistency. The page refreshes every minute while visible and supports manual refresh. An in-memory scan cache is validated against its block hash before incremental reads. No fabricated counters or price feeds are used; an unavailable read displays no assumed values, and a failed refresh labels any retained snapshot as stale.
 
-The page uses no third-party runtime JavaScript. A Content Security Policy permits only local scripts and the specified public Ethereum RPC endpoints. Untrusted wallet metadata, RPC results, translations, and messages are inserted as text, not HTML. Wallet claims are restricted to Ethereum and the existing `claim()` call with zero ETH value; there is no token approval request.
+The page uses no third-party runtime JavaScript. A Content Security Policy permits only local scripts and the specified public Ethereum RPC endpoint. Untrusted wallet metadata, RPC results, translations, and messages are inserted as text, not HTML. Wallet claims are restricted to Ethereum and the existing `claim()` call with zero ETH value; there is no token approval request.
 
 The language choice is stored in browser local storage; pending transaction state is stored in session storage. RPC providers receive read requests and GitHub Pages serves static files. Public wallet addresses and transactions remain visible on Ethereum.
 

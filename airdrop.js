@@ -10,7 +10,7 @@ export const SELECTOR = Object.freeze({
   claim: "0x4e71d92d", claimed: "0xc884ef83", available: "0xee5e2b8a",
   token: "0x82bfefc8", amount: "0x270ef385",
 });
-const RPCS = ["https://ethereum-rpc.publicnode.com", "https://eth.llamarpc.com"];
+const RPC = "https://ethereum-rpc.publicnode.com";
 export const isAddress = (value) => /^0x[0-9a-fA-F]{40}$/.test(value || "");
 export function claimedData(account) {
   if (!isAddress(account)) throw new UiError("invalidAddress");
@@ -105,7 +105,8 @@ export async function startAirdrop({ win = window, doc = document, fetcher = fet
 
   async function read(method, params) {
     let lastError;
-    for (const endpoint of RPCS) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const endpoint = RPC;
       try {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 10000);
@@ -118,7 +119,10 @@ export async function startAirdrop({ win = window, doc = document, fetcher = fet
           if (json.error || !("result" in json)) throw new UiError("rpcError");
           return json.result;
         } finally { clearTimeout(timeout); }
-      } catch (error) { lastError = error; }
+      } catch (error) {
+        lastError = error;
+        if (attempt === 0) await new Promise((resolve) => setTimeout(resolve, 500));
+      }
     }
     throw lastError;
   }

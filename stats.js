@@ -1,9 +1,9 @@
-import { TOKEN, AMOUNT, SELECTOR, isAddress } from "./airdrop.js?v=philosophy-1";
+import { TOKEN, AMOUNT, SELECTOR, isAddress } from "./airdrop.js?v=philosophy-2";
 import { t, getLocale } from "./i18n.js";
 
 export const CLAIM_TOPIC = "0xd8138f8a3f377c5259ca548e70e4c2de94f129f5a11036a15b69513cba2b426a";
 export const AIRDROP = "0x8f06c8dcf69b8b66da126612b0bc1a44cc94cb51";
-const RPCS = ["https://ethereum-rpc.publicnode.com", "https://eth.llamarpc.com"];
+const RPC = "https://ethereum-rpc.publicnode.com";
 const hex = (number) => `0x${number.toString(16)}`;
 const uint = (word) => {
   if (!/^0x[0-9a-f]{64}$/i.test(word || "")) throw new Error("Invalid ABI integer");
@@ -49,7 +49,8 @@ export function createStatsReader(fetcher = fetch) {
   return async function load(config) {
     if (!isAddress(config.contract) || config.contract.toLowerCase() !== AIRDROP || config.token.toLowerCase() !== TOKEN || config.chainId !== "0x1" || !Number.isSafeInteger(config.deploymentBlock) || config.deploymentBlock < 1) throw new Error("Invalid statistics configuration");
     let lastError;
-    for (const endpoint of RPCS) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const endpoint = RPC;
       const rpc = (method, params) => request(endpoint, method, params);
       try {
         if (BigInt(await rpc("eth_chainId", [])) !== 1n) throw new Error("Wrong statistics chain");
@@ -81,7 +82,10 @@ export function createStatsReader(fetcher = fetch) {
         const totals = summarizeClaims(logs, config.contract, config.deploymentBlock, block);
         cached = { address: config.contract.toLowerCase(), block, hash: snapshot.hash, logs };
         return { ...totals, remaining: uint(balance), available: uint(available), block, blockHash: snapshot.hash, checkedAt: Date.now(), endpoint };
-      } catch (error) { lastError = error; }
+      } catch (error) {
+        lastError = error;
+        if (attempt === 0) await new Promise((resolve) => setTimeout(resolve, 500));
+      }
     }
     throw lastError;
   };
