@@ -1,6 +1,6 @@
 # PIH website and recipient-paid airdrop
 
-This update adds a wallet claim interface to the existing GitHub Pages site. The configuration points to the deployed Ethereum faucet at `0x8F06C8DCF69B8b66DA126612b0bc1a44cc94cb51`, funded with 1 PIH. Its creation and runtime bytecode were verified as an exact match by Sourcify. The website update still needs to be published to GitHub Pages.
+The GitHub Pages site presents the project's philosophy in English by default, with an EN/RU switch, public Ethereum distribution statistics, and a wallet claim interface. The configuration points to the deployed Ethereum faucet at `0x8F06C8DCF69B8b66DA126612b0bc1a44cc94cb51`, initially funded with 1 PIH. Its creation and runtime bytecode were verified as an exact match by Sourcify.
 
 Deployment and funding receipts are recorded in `airdrop-deployment.json`. The faucet's public source can be inspected at https://repo.sourcify.dev/1/0x8F06C8DCF69B8b66DA126612b0bc1a44cc94cb51.
 
@@ -21,10 +21,26 @@ With Foundry, Solidity 0.8.26, and Node.js 22 or later:
 ```bash
 forge test -v
 node --check airdrop.js
-node --test test/airdrop.test.js
+node --test test/*.test.js
 ```
 
 The Solidity checks cover exact awards, repeat-claim rejection, independent addresses, failed transfers, empty reserves, unauthorized withdrawals, and rejected ETH payments. The JavaScript checks cover transaction contents, network switching, insufficient ETH, repeat claims, rejection, pending transactions and page reloads, and failed receipts.
+
+Additional tests cover EN/RU completeness, exact integer formatting, RPC fallback, event deduplication, reorg recovery, and retaining labeled stale statistics after an RPC failure. Existing contracts are not modified by the philosophy/statistics update.
+
+## Public statistics and languages
+
+`i18n.js` contains the English and Russian copy. English is used unless the visitor has explicitly saved Russian in this browser. `site.js` starts the language, claim, and statistics controllers; it requests no wallet connection until the visitor presses the connect button.
+
+`stats.js` reads the deployed contract's `Claimed` events starting at `deploymentBlock` in `airdrop-config.json`. Claimed addresses and awarded PIH are calculated from those events, not by subtracting the remaining balance from the initial funding. PIH balance and `availableClaims()` are read at the same block (two blocks behind the current head), and the block hash is checked for consistency. The page refreshes every minute while visible and supports manual refresh. An in-memory scan cache is validated against its block hash before incremental reads. No fabricated counters or price feeds are used; an unavailable read displays no assumed values, and a failed refresh labels any retained snapshot as stale.
+
+The page uses no third-party runtime JavaScript. A Content Security Policy permits only local scripts and the specified public Ethereum RPC endpoints. Untrusted wallet metadata, RPC results, translations, and messages are inserted as text, not HTML. Wallet claims are restricted to Ethereum and the existing `claim()` call with zero ETH value; there is no token approval request.
+
+The language choice is stored in browser local storage; pending transaction state is stored in session storage. RPC providers receive read requests and GitHub Pages serves static files. Public wallet addresses and transactions remain visible on Ethereum.
+
+## Publication and legal scope
+
+See [LEGAL_REVIEW.md](LEGAL_REVIEW.md) for primary sources considered and unresolved jurisdiction-specific questions. No universal legal approval or eligibility is asserted. The operator's country and target jurisdictions must be established for a specific legal assessment; a page notice is not an enforcement mechanism. The existing on-chain contract and claim amount are unchanged.
 
 To simulate against the real PIH token without broadcasting any mainnet transactions, start a disposable local mainnet fork and run:
 

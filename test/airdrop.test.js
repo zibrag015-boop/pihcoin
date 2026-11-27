@@ -2,12 +2,15 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { startAirdrop, TOKEN, AMOUNT, SELECTOR, claimedData, validateConfig } from "../airdrop.js";
 
+import { setLanguage } from "../i18n.js";
+
 const WALLET = "0x1111111111111111111111111111111111111111";
 const FAUCET = "0x2222222222222222222222222222222222222222";
 const HASH = "0x" + "ab".repeat(32);
 const word = (n) => "0x" + BigInt(n).toString(16).padStart(64, "0");
 
 function fixture(settings = {}) {
+  setLanguage("en", { doc: null, win: null });
   const state = { claimed: false, available: 1000000n, balance: 10n ** 18n, chain: "0x1", ...settings };
   const elements = new Map();
   const requests = [];
@@ -71,7 +74,7 @@ test("unlaunched configuration never enables transactions", async () => {
   await app.connect(); await app.claim();
   assert.equal(f.el("claim").disabled, true);
   assert.equal(f.requests.length, 0);
-  assert.match(f.el("status").textContent, /готовится/);
+  assert.match(f.el("status").textContent, /being prepared/);
 });
 test("invalid contract cannot receive a transaction", async () => {
   const f = fixture({ invalidCode: true }); const app = await startAirdrop(f.options);
@@ -87,7 +90,7 @@ test("claim sends only zero ETH and the fixed claim call; receipt confirms award
   const sent = f.requests.filter((r) => r.method === "eth_sendTransaction");
   assert.equal(sent.length, 1);
   assert.deepEqual(sent[0].params, [{ from: WALLET, to: FAUCET, data: SELECTOR.claim, value: "0x0", chainId: "0x1" }]);
-  assert.match(f.el("status").textContent, /Получено 0,000001 PIH/);
+  assert.match(f.el("status").textContent, /Received 0.000001 PIH/);
   assert.equal(f.el("transaction").href, `https://etherscan.io/tx/${HASH}`);
   assert.equal(f.el("claim").disabled, true);
   await app.claim(); assert.equal(f.requests.filter((r) => r.method === "eth_sendTransaction").length, 1);
@@ -95,7 +98,7 @@ test("claim sends only zero ETH and the fixed claim call; receipt confirms award
 test("a repeat recipient is blocked before signing", async () => {
   const f = fixture({ claimed: true }); const app = await startAirdrop(f.options);
   await app.connect(); await app.claim();
-  assert.match(f.el("status").textContent, /уже получил/);
+  assert.match(f.el("status").textContent, /already received/);
   assert.equal(f.requests.some((r) => r.method === "eth_sendTransaction"), false);
 });
 test("the wrong network is switched to Ethereum before enabling claim", async () => {
@@ -122,14 +125,14 @@ test("insufficient gas and empty reserve disable claim", async () => {
 test("wallet rejection restores controls without sending", async () => {
   const f = fixture({ rejectConnect: true }); const app = await startAirdrop(f.options);
   await app.connect();
-  assert.match(f.el("status").textContent, /отменено/);
+  assert.match(f.el("status").textContent, /canceled/);
   assert.equal(f.el("connect").disabled, false);
   assert.equal(f.requests.some((r) => r.method === "eth_sendTransaction"), false);
 });
 test("failed receipt is never reported as tokens received", async () => {
   const f = fixture({ receiptStatus: "0x0" }); const app = await startAirdrop(f.options);
   await app.connect(); await app.claim();
-  assert.match(f.el("status").textContent, /не выполнена/);
+  assert.match(f.el("status").textContent, /failed/);
   assert.equal(f.state.claimed, false);
 });
 test("an unconfirmed transaction cannot be sent a second time", async () => {
@@ -138,7 +141,7 @@ test("an unconfirmed transaction cannot be sent a second time", async () => {
   assert.equal(f.el("claim").disabled, true);
   await app.claim();
   assert.equal(f.requests.filter((r) => r.method === "eth_sendTransaction").length, 1);
-  assert.match(f.el("status").textContent, /ещё ожидается/);
+  assert.match(f.el("status").textContent, /still pending/);
   const reloaded = await startAirdrop(f.options);
   await reloaded.connect(); await reloaded.claim();
   assert.equal(f.el("claim").disabled, true);
@@ -147,7 +150,7 @@ test("an unconfirmed transaction cannot be sent a second time", async () => {
 test("no wallet provides browser-wallet instructions", async () => {
   const f = fixture({ noWallet: true }); await startAirdrop(f.options);
   assert.equal(f.el("connect").disabled, true);
-  assert.match(f.el("status").textContent, /браузере кошелька/);
+  assert.match(f.el("status").textContent, /wallet browser/);
 });
 test("config cannot redirect claims to another token or network", () => {
   const base = { chainId: "0x1", token: TOKEN, contract: FAUCET, claimAmount: AMOUNT.toString() };

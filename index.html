@@ -1,341 +1,94 @@
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
-
-  <meta name="description"
-        content="Pihcoin (PIH) is an ERC-20 token on Ethereum Mainnet with a fixed supply of 1,000,000,000 PIH.">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="One coin. One million wallets. Pihcoin is an independent digital experiment in simplicity, accessibility, and freedom of ownership.">
   <meta name="theme-color" content="#071523">
-
-  <title>Pihcoin (PIH) | Ethereum ERC-20 Token</title>
-
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' https://ethereum-rpc.publicnode.com https://eth.llamarpc.com; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+  <title>PIHCOIN — ONE COIN. ONE MILLION WALLETS.</title>
   <link rel="icon" type="image/png" href="logo-64.png">
-
-  <style>
-    :root {
-      color-scheme: dark;
-      font-family: system-ui, Arial, sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: #f2fbff;
-      background: radial-gradient(
-        ellipse at 50% 18%,
-        #123a48 0%,
-        #081a2c 38%,
-        #040912 82%
-      );
-    }
-
-    .wrap {
-      max-width: 850px;
-      margin: 0 auto;
-      padding: 32px 22px 48px;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      color: #99b2c3;
-      font-size: 14px;
-    }
-
-    .brand {
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      color: #b9fff7;
-    }
-
-    .pill {
-      border: 1px solid #215f69;
-      border-radius: 100px;
-      padding: 8px 12px;
-    }
-
-    main {
-      text-align: center;
-      margin: 60px auto 38px;
-    }
-
-    /* КВАДРАТНЫЙ ЛОГОТИП */
-    .logo {
-      display: block;
-      width: 256px;
-      height: 256px;
-      max-width: 70vw;
-      max-height: 70vw;
-      aspect-ratio: 1 / 1;
-      object-fit: contain;
-      margin: 0 auto;
-      border-radius: 24%;
-      box-shadow:
-        0 0 45px rgba(0,255,225,0.12),
-        0 0 85px rgba(0,255,225,0.06);
-    }
-
-    h1 {
-      font-size: clamp(42px, 8vw, 72px);
-      line-height: 1.08;
-      letter-spacing: -0.05em;
-      margin: 28px 0 8px;
-    }
-
-    .ticker {
-      font-size: 21px;
-      color: #7ef9ed;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      margin: 0 0 22px;
-    }
-
-    .lead {
-      max-width: 640px;
-      margin: 0 auto;
-      line-height: 1.7;
-      font-size: 17px;
-      color: #b8cad4;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin: 40px 0 24px;
-    }
-
-    .card {
-      padding: 22px 15px;
-      border: 1px solid #255064;
-      background: rgba(12,33,51,0.8);
-      border-radius: 18px;
-      text-align: center;
-    }
-
-    .k {
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #8eacbb;
-      margin-bottom: 11px;
-    }
-
-    .v {
-      font-size: 20px;
-      font-weight: 700;
-      color: #f4ffff;
-    }
-
-    .details {
-      padding: 24px;
-      border: 1px solid #255064;
-      background: rgba(12,33,51,0.75);
-      border-radius: 18px;
-      text-align: left;
-    }
-
-    h2 {
-      font-size: 20px;
-      margin: 0 0 13px;
-    }
-
-    .address {
-      font-family: monospace;
-      overflow-wrap: anywhere;
-      font-size: 14px;
-      color: #8bf8ec;
-      line-height: 1.6;
-    }
-
-    a {
-      color: #7cf7e9;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .button {
-      display: inline-block;
-      border: 1px solid #39bbb7;
-      padding: 12px 18px;
-      border-radius: 12px;
-      margin-top: 17px;
-      font-weight: 650;
-    }
-
-    .airdrop { margin-top: 24px; }
-    .airdrop p { line-height: 1.65; color: #b8cad4; }
-    .airdrop .reward { color: #7ef9ed; font-size: clamp(28px, 6vw, 40px); font-weight: 800; margin: 8px 0; }
-    .airdrop .button { background: #103d49; color: #f2fbff; font: inherit; cursor: pointer; margin: 0; }
-    .airdrop .button:disabled { opacity: .5; cursor: not-allowed; }
-    .airdrop .button:focus-visible, .airdrop select:focus-visible { outline: 3px solid #7ef9ed; outline-offset: 4px; }
-    .airdrop-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
-    .airdrop dl { display: grid; grid-template-columns: minmax(90px, 130px) 1fr; gap: 12px; line-height: 1.5; }
-    .airdrop dt { color: #99b2c3; }
-    .airdrop dd { margin: 0; overflow-wrap: anywhere; }
-    .airdrop [hidden] { display: none; }
-    .airdrop select { font: inherit; color: #f2fbff; background: #0c2133; padding: 10px; max-width: 100%; margin: 8px 0; }
-    #airdrop-status { padding: 12px 0; min-height: 48px; }
-
-    footer {
-      text-align: center;
-      color: #829bab;
-      font-size: 13px;
-      margin-top: 35px;
-      line-height: 1.7;
-    }
-
-    @media (max-width: 560px) {
-      .wrap {
-        padding: 24px 16px 40px;
-      }
-
-      header {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      main {
-        margin: 40px auto 20px;
-      }
-
-      .logo {
-        width: 220px;
-        height: 220px;
-        max-width: 70vw;
-        max-height: 70vw;
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .v {
-        font-size: 18px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css?v=philosophy-1">
 </head>
-
 <body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
   <div class="wrap">
-
-    <header>
-      <span class="brand">PIHCOIN</span>
-      <span class="pill">
-        Ethereum Mainnet · ERC-20
-      </span>
+    <header class="header">
+      <a class="brand" href="#main" aria-label="Pihcoin"><img src="logo-64.png" alt="" width="36" height="36"><span>PIHCOIN</span></a>
+      <nav class="navigation" aria-label="Main navigation" data-i18n-aria="navigation">
+        <a href="#philosophy" data-i18n="navPhilosophy">Philosophy</a>
+        <a href="#distribution" data-i18n="navDistribution">Distribution</a>
+        <a href="#transparency" data-i18n="navTransparency">Transparency</a>
+      </nav>
+      <div class="language-switch" role="group" aria-label="Language" data-i18n-aria="language">
+        <button type="button" data-language="en" aria-pressed="true" lang="en">EN</button>
+        <button type="button" data-language="ru" aria-pressed="false" lang="ru">RU</button>
+      </div>
     </header>
 
-    <main>
-      <img
-        src="logo.png"
-        alt="Pihcoin Logo"
-        class="logo"
-        width="256"
-        height="256"
-      >
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="experiment">A shared digital experiment</p>
+          <h1 id="hero-title"><span data-i18n="heroLine1">One coin.</span><span class="accent" data-i18n="heroLine2">One million wallets.</span></h1>
+          <p class="lead" data-i18n="heroLead">Even the smallest fraction is part of the whole.</p>
+          <p class="hero-detail" data-i18n="heroDetail">One PIH, divided into one million shares of 0.000001 PIH. An idea about participation, not the size of a holding.</p>
+          <div class="hero-actions"><a class="button primary" href="#distribution" data-i18n="exploreDistribution">Explore the distribution</a><a class="text-link" href="#philosophy" data-i18n="readPhilosophy">Read the philosophy</a></div>
+        </div>
+        <div class="hero-art"><img class="logo" src="logo.png" alt="Pihcoin turquoise token logo" data-i18n-alt="logoAlt" width="256" height="256"><span class="network-pill">Ethereum · ERC-20</span></div>
+      </section>
 
-      <h1>Pihcoin</h1>
+      <section id="philosophy" class="philosophy section" aria-labelledby="philosophy-title">
+        <div class="section-heading"><p class="eyebrow" data-i18n="philosophyEyebrow">The idea behind PIH</p><h2 id="philosophy-title" data-i18n="philosophyTitle">A small fraction. A shared idea.</h2></div>
+        <div class="philosophy-copy">
+          <p data-i18n="philosophy1">Pihcoin is an independent digital token built around simplicity, accessibility, and freedom of ownership.</p>
+          <p data-i18n="philosophy2">One coin can be shared across one million wallets. Each address can receive one millionth of one Pihcoin — 0.000001 PIH.</p>
+          <p data-i18n="philosophy3">Pihcoin explores how a single digital coin can reach people across the world through blockchain technology.</p>
+          <p class="emphasis" data-i18n="philosophy4">The size of a holding does not define belonging. Even the smallest fraction is part of the whole.</p>
+          <p data-i18n="philosophy5">No promises of profit. No guaranteed value. A shared digital experiment. Its future depends on people's interest and participation.</p>
+        </div>
+        <div class="principles"><h3 data-i18n="principlesTitle">Our principles</h3><ul><li data-i18n="principle1">Simplicity</li><li data-i18n="principle2">Openness</li><li data-i18n="principle3">Transparency</li><li data-i18n="principle4">Freedom of ownership</li><li data-i18n="principle5">No additional issuance</li></ul></div>
+      </section>
 
-      <p class="ticker">PIH</p>
+      <section id="distribution" class="section" aria-labelledby="distribution-title">
+        <div class="section-heading"><p class="eyebrow" data-i18n="distributionEyebrow">Follow the experiment</p><h2 id="distribution-title" data-i18n="distributionTitle">Distribution, in the open.</h2><p data-i18n="distributionIntro">One million wallets is the idea, not a claim about today's community. The figures below come from the deployed Ethereum contracts.</p></div>
+        <div class="stats-grid" aria-label="On-chain distribution statistics" data-i18n-aria="statsAria">
+          <article class="stat"><h3 data-i18n="statsClaimed">Addresses that claimed</h3><p id="stats-claimed" class="stat-value">—</p><p class="stat-caption" data-i18n="statsClaimedCaption">Successful claims, not total token holders</p></article>
+          <article class="stat"><h3 data-i18n="statsDistributed">PIH distributed</h3><p id="stats-distributed" class="stat-value">—</p><p class="stat-caption" data-i18n="statsDistributedCaption">Awarded by the airdrop contract</p></article>
+          <article class="stat"><h3 data-i18n="statsRemaining">PIH in the airdrop</h3><p id="stats-remaining" class="stat-value">—</p><p class="stat-caption" data-i18n="statsRemainingCaption">Actual contract token balance</p></article>
+          <article class="stat"><h3 data-i18n="statsAvailable">Available claims</h3><p id="stats-available" class="stat-value">—</p><p class="stat-caption" data-i18n="statsAvailableCaption">Based on the remaining PIH</p></article>
+        </div>
+        <div class="stats-foot"><p id="stats-status" role="status" aria-live="polite" data-i18n="statsLoading">Reading Ethereum. No wallet connection needed.</p><button type="button" id="stats-refresh" class="text-button" data-i18n="refreshStats">Refresh data</button></div>
+        <p class="small" data-i18n="statsMethod">Claim counts and distributed amounts come from Claimed events. Balances are read at the same block. Top-ups and owner withdrawals are not counted as claims.</p>
 
-      <p class="lead">
-        Pihcoin (PIH) is an ERC-20 token
-        on the Ethereum blockchain.
-        Its fixed supply of one billion tokens
-        was created at deployment.
-        The contract has no additional
-        minting function.
-      </p>
+        <section class="airdrop panel" aria-labelledby="airdrop-title">
+          <div class="claim-intro"><p class="eyebrow" data-i18n="claimEyebrow">A fraction of the whole</p><h3 id="airdrop-title" data-i18n="claimTitle">Receive 0.000001 PIH</h3><p data-i18n="claimDescription">One claim per address on Ethereum. The token is free; the recipient pays Ethereum network gas in ETH.</p><p class="small" data-i18n="claimSecurity">No token spending approval, seed phrase, or private key is needed. Review the network fee in your wallet.</p></div>
+          <div class="claim-controls">
+            <label id="wallet-choice-label" for="wallet-choice" hidden data-i18n="walletChoice">Choose a wallet</label>
+            <select id="wallet-choice" hidden aria-labelledby="wallet-choice-label"></select>
+            <dl><dt data-i18n="claimAvailable">Available</dt><dd id="airdrop-remaining" data-i18n="checking">Checking…</dd><dt data-i18n="wallet">Wallet</dt><dd id="airdrop-account" data-i18n="notConnected">Not connected</dd><dt data-i18n="networkFee">Network fee</dt><dd id="airdrop-fee" data-i18n="feeAfterConnect">Shown after connecting</dd></dl>
+            <div class="airdrop-actions"><button type="button" class="button" id="airdrop-connect" disabled data-i18n="connectWallet">Connect wallet</button><button type="button" class="button primary" id="airdrop-claim" disabled data-i18n="claimButton">Receive 0.000001 PIH</button></div>
+            <p id="airdrop-status" role="status" aria-live="polite" data-i18n="loadingAirdrop">Loading airdrop details…</p>
+            <p><a id="airdrop-transaction" target="_blank" rel="noopener noreferrer" hidden data-i18n="viewTransaction">View transaction</a></p>
+            <p><a id="airdrop-contract" target="_blank" rel="noopener noreferrer" hidden data-i18n="viewAirdrop">View the airdrop contract</a></p>
+            <noscript>JavaScript is required for live statistics and wallet claims. / Для статистики и получения PIH включите JavaScript.</noscript>
+          </div>
+        </section>
+      </section>
+
+      <section id="transparency" class="section" aria-labelledby="transparency-title">
+        <div class="section-heading"><p class="eyebrow" data-i18n="transparencyEyebrow">Verify it yourself</p><h2 id="transparency-title" data-i18n="transparencyTitle">The facts are on-chain.</h2></div>
+        <div class="transparency-grid">
+          <article class="panel"><h3 data-i18n="tokenDetails">Token details</h3><dl class="facts"><dt data-i18n="standard">Standard</dt><dd>ERC-20</dd><dt data-i18n="network">Network</dt><dd>Ethereum Mainnet</dd><dt data-i18n="supply">Fixed token supply</dt><dd>1,000,000,000 PIH</dd></dl><p class="small" data-i18n="supplyNote">The one-coin experiment describes the airdrop, not the total token supply. All tokens were issued at deployment. The PIH contract has no additional minting function.</p><a class="address" href="https://etherscan.io/token/0x687FE7D7247a63E338fF7d089b9434C155B200D8" target="_blank" rel="noopener noreferrer">0x687FE7D7247a63E338fF7d089b9434C155B200D8</a></article>
+          <article class="panel"><h3 data-i18n="airdropDetails">Airdrop contract</h3><p data-i18n="airdropRules">A fixed 0.000001 PIH award, once per address. One person may control multiple addresses. The owner can withdraw undistributed PIH.</p><a class="address" href="https://etherscan.io/address/0x8F06C8DCF69B8b66DA126612b0bc1a44cc94cb51" target="_blank" rel="noopener noreferrer">0x8F06C8DCF69B8b66DA126612b0bc1a44cc94cb51</a><p><a href="https://repo.sourcify.dev/1/0x8F06C8DCF69B8b66DA126612b0bc1a44cc94cb51" target="_blank" rel="noopener noreferrer" data-i18n="verifiedSource">Read the verified source</a></p></article>
+        </div>
+        <aside class="legal-note"><h3 data-i18n="legalTitle">Participation and local rules</h3><p data-i18n="legalText">Availability depends on applicable law. This page does not establish that participation is permitted in every jurisdiction. Do not participate where prohibited. Pihcoin makes no promise of profit, guaranteed value, or financial benefit.</p><p class="small" data-i18n="privacyText">Wallet addresses and transactions are public on Ethereum. The site uses public RPC providers and GitHub Pages; those services receive connection information. Language preference and pending transaction details are stored only in your browser.</p></aside>
+      </section>
     </main>
 
-    <div class="cards">
-
-      <section class="card">
-        <div class="k">Token Standard</div>
-        <div class="v">ERC-20</div>
-      </section>
-
-      <section class="card">
-        <div class="k">Total Supply</div>
-        <div class="v">1,000,000,000 PIH</div>
-      </section>
-
-      <section class="card">
-        <div class="k">Network</div>
-        <div class="v">Ethereum Mainnet</div>
-      </section>
-
-    </div>
-
-    <section class="details">
-      <h2>Verified Smart Contract</h2>
-
-      <div class="address">
-        0x687FE7D7247a63E338fF7d089b9434C155B200D8
-      </div>
-
-      <a
-        class="button"
-        href="https://etherscan.io/token/0x687FE7D7247a63E338fF7d089b9434C155B200D8"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        View PIH on Etherscan
-      </a>
-    </section>
-
-    <section class="details airdrop" aria-labelledby="airdrop-title" lang="ru">
-      <h2 id="airdrop-title">Раздача PIH</h2>
-      <p class="reward">0,000001 PIH</p>
-      <p>Один раз на адрес в сети Ethereum. Токены бесплатные; газ оплачивает получатель из своего кошелька в ETH.</p>
-      <label id="wallet-choice-label" for="wallet-choice" hidden>Выбрать кошелёк</label>
-      <select id="wallet-choice" hidden aria-labelledby="wallet-choice-label"></select>
-      <dl>
-        <dt>Доступно</dt><dd id="airdrop-remaining">Проверяем…</dd>
-        <dt>Кошелёк</dt><dd id="airdrop-account">Не подключён</dd>
-        <dt>Комиссия</dt><dd id="airdrop-fee">Появится после подключения</dd>
-      </dl>
-      <div class="airdrop-actions">
-        <button type="button" class="button" id="airdrop-connect" disabled>Подключить кошелёк</button>
-        <button type="button" class="button" id="airdrop-claim" disabled>Получить 0,000001 PIH</button>
-      </div>
-      <p id="airdrop-status" role="status" aria-live="polite">Загружаем данные раздачи…</p>
-      <p><a id="airdrop-transaction" target="_blank" rel="noopener noreferrer" hidden>Посмотреть транзакцию</a></p>
-      <p><a id="airdrop-contract" target="_blank" rel="noopener noreferrer" hidden>Контракт раздачи на Etherscan</a></p>
-      <p>Для получения не нужны разрешения на списание токенов, сид-фраза или приватный ключ. Комиссию подтвердите в своём кошельке.</p>
-      <noscript>Для подключения кошелька и получения PIH включите JavaScript.</noscript>
-    </section>
-
-<footer>
-  <p>Pihcoin (PIH) — an independent ERC-20
-  token on Ethereum Mainnet.</p>
-
- <p>Official project email:
-  <a href="mailto:admin@pihnem.com">admin@pihnem.com</a>
-</p>
-<p>Additional contact:
-  <a href="mailto:zibrag015@gmail.com">zibrag015@gmail.com</a>
-</p>
-
-  <p>© 2026 Pihcoin</p>
-</footer>
-
+    <footer><span>© 2026 Pihcoin</span><a href="https://github.com/zibrag015-boop/pihcoin" target="_blank" rel="noopener noreferrer" data-i18n="websiteSource">Website source</a><a href="mailto:admin@pihnem.com">admin@pihnem.com</a><a href="mailto:zibrag015@gmail.com">zibrag015@gmail.com</a></footer>
   </div>
-  <script type="module" src="airdrop.js"></script>
+  <script type="module" src="site.js?v=philosophy-1"></script>
 </body>
 </html>
