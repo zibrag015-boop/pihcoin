@@ -1,0 +1,6 @@
+{
+  "name": "pihcoin-site",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test test/airdrop.test.js" }
+}

@@ -1,0 +1,94 @@
+{
+  "chain_id": 1,
+  "owner": "0x5e3421f58f1cabd3afddadf05c84f1c37196ed28",
+  "token": "0x687fe7d7247a63e338ff7d089b9434c155b200d8",
+  "contract_address": "0x8F06C8DCF69B8b66DA126612b0bc1a44cc94cb51",
+  "claim_amount_base_units": 1000000000000,
+  "funding_pih": "1",
+  "balance_before_wei": 74138655020994,
+  "max_fee_per_gas_wei": 190000000,
+  "max_total_gas_cost_wei": 73150000000000,
+  "transactions": [
+    {
+      "operation": "deploy_airdrop",
+      "hash": "0x16dbd0c549973d28eab495d9d6df80d1737d8110ebfb4c6894cd3da0e7e14dd9",
+      "nonce": 4,
+      "status": "confirmed",
+      "receipt": {
+        "blockHash": "0x7f60715ee00e1afd059c70b22867ef2b7a4e58a92807175def566bf6a2063cf3",
+        "blockNumber": "0x1947c46",
+        "contractAddress": "0x8f06c8dcf69b8b66da126612b0bc1a44cc94cb51",
+        "cumulativeGasUsed": "0x1e3211a",
+        "effectiveGasPrice": "0x9b60df7",
+        "from": "0x5e3421f58f1cabd3afddadf05c84f1c37196ed28",
+        "gasUsed": "0x4d050",
+        "logs": [],
+        "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "status": "0x1",
+        "to": null,
+        "transactionHash": "0x16dbd0c549973d28eab495d9d6df80d1737d8110ebfb4c6894cd3da0e7e14dd9",
+        "transactionIndex": "0x15e",
+        "type": "0x2"
+      }
+    },
+    {
+      "operation": "fund_airdrop_1_PIH",
+      "hash": "0x7a9c4888b3cc6137c172a6ecdb7b956c990dce2719bffa6ba83ea8a02ac0c5ba",
+      "nonce": 5,
+      "status": "confirmed",
+      "receipt": {
+        "blockHash": "0x4883f13d812fe387d1e804f6007f3fcd31a51753e8c41f5cde40314531e83ed0",
+        "blockNumber": "0x1947c47",
+        "contractAddress": null,
+        "cumulativeGasUsed": "0x1474305",
+        "effectiveGasPrice": "0x9e2d618",
+        "from": "0x5e3421f58f1cabd3afddadf05c84f1c37196ed28",
+        "gasUsed": "0xc99e",
+        "logs": [
+          {
+            "address": "0x687fe7d7247a63e338ff7d089b9434c155b200d8",
+            "topics": [
+              "0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef",
+              "0x0000000000000000000000005e3421f58f1cabd3afddadf05c84f1c37196ed28",
+              "0x0000000000000000000000008f06c8dcf69b8b66da126612b0bc1a44cc94cb51"
+            ],
+            "data": "0x0000000000000000000000000000000000000000000000000de0b6b3a7640000",
+            "blockNumber": "0x1947c47",
+            "transactionHash": "0x7a9c4888b3cc6137c172a6ecdb7b956c990dce2719bffa6ba83ea8a02ac0c5ba",
+            "transactionIndex": "0xdf",
+            "blockHash": "0x4883f13d812fe387d1e804f6007f3fcd31a51753e8c41f5cde40314531e83ed0",
+            "blockTimestamp": "0x6b09cc9f",
+            "logIndex": "0x2b3",
+            "removed": false
+          }
+        ],
+        "logsBloom": "0x00000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000008000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000010040000000000000000000000000000000000000000000000000002000200000000000000000000000000000000000000000000000000000000000000000000000000000000000002000080000000000000000000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000080000",
+        "status": "0x1",
+        "to": "0x687fe7d7247a63e338ff7d089b9434c155b200d8",
+        "transactionHash": "0x7a9c4888b3cc6137c172a6ecdb7b956c990dce2719bffa6ba83ea8a02ac0c5ba",
+        "transactionIndex": "0xdf",
+        "type": "0x2"
+      }
+    }
+  ],
+  "result": {
+    "available_claims": 1000000,
+    "gas_cost_wei": 59959357343744,
+    "remaining_eth_wei": 14179297677250
+  },
+  "verification": {
+    "provider": "sourcify",
+    "job_id": "865f0a9b-22d8-4fd3-a1bc-a08e1ce650c6",
+    "status": "exact_match",
+    "readback": {
+      "matchId": "60091816",
+      "creationMatch": "exact_match",
+      "runtimeMatch": "exact_match",
+      "verifiedAt": "2026-11-27T18:32:06Z",
+      "match": "exact_match",
+      "chainId": "1",
+      "address": "0x8F06C8DCF69B8b66DA126612b0bc1a44cc94cb51"
+    },
+    "url": "https://repo.sourcify.dev/1/0x8F06C8DCF69B8b66DA126612b0bc1a44cc94cb51"
+  }
+}

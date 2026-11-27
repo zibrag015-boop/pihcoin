@@ -176,6 +176,20 @@
       font-weight: 650;
     }
 
+    .airdrop { margin-top: 24px; }
+    .airdrop p { line-height: 1.65; color: #b8cad4; }
+    .airdrop .reward { color: #7ef9ed; font-size: clamp(28px, 6vw, 40px); font-weight: 800; margin: 8px 0; }
+    .airdrop .button { background: #103d49; color: #f2fbff; font: inherit; cursor: pointer; margin: 0; }
+    .airdrop .button:disabled { opacity: .5; cursor: not-allowed; }
+    .airdrop .button:focus-visible, .airdrop select:focus-visible { outline: 3px solid #7ef9ed; outline-offset: 4px; }
+    .airdrop-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0; }
+    .airdrop dl { display: grid; grid-template-columns: minmax(90px, 130px) 1fr; gap: 12px; line-height: 1.5; }
+    .airdrop dt { color: #99b2c3; }
+    .airdrop dd { margin: 0; overflow-wrap: anywhere; }
+    .airdrop [hidden] { display: none; }
+    .airdrop select { font: inherit; color: #f2fbff; background: #0c2133; padding: 10px; max-width: 100%; margin: 8px 0; }
+    #airdrop-status { padding: 12px 0; min-height: 48px; }
+
     footer {
       text-align: center;
       color: #829bab;
@@ -285,7 +299,28 @@
       </a>
     </section>
 
-  
+    <section class="details airdrop" aria-labelledby="airdrop-title" lang="ru">
+      <h2 id="airdrop-title">Раздача PIH</h2>
+      <p class="reward">0,000001 PIH</p>
+      <p>Один раз на адрес в сети Ethereum. Токены бесплатные; газ оплачивает получатель из своего кошелька в ETH.</p>
+      <label id="wallet-choice-label" for="wallet-choice" hidden>Выбрать кошелёк</label>
+      <select id="wallet-choice" hidden aria-labelledby="wallet-choice-label"></select>
+      <dl>
+        <dt>Доступно</dt><dd id="airdrop-remaining">Проверяем…</dd>
+        <dt>Кошелёк</dt><dd id="airdrop-account">Не подключён</dd>
+        <dt>Комиссия</dt><dd id="airdrop-fee">Появится после подключения</dd>
+      </dl>
+      <div class="airdrop-actions">
+        <button type="button" class="button" id="airdrop-connect" disabled>Подключить кошелёк</button>
+        <button type="button" class="button" id="airdrop-claim" disabled>Получить 0,000001 PIH</button>
+      </div>
+      <p id="airdrop-status" role="status" aria-live="polite">Загружаем данные раздачи…</p>
+      <p><a id="airdrop-transaction" target="_blank" rel="noopener noreferrer" hidden>Посмотреть транзакцию</a></p>
+      <p><a id="airdrop-contract" target="_blank" rel="noopener noreferrer" hidden>Контракт раздачи на Etherscan</a></p>
+      <p>Для получения не нужны разрешения на списание токенов, сид-фраза или приватный ключ. Комиссию подтвердите в своём кошельке.</p>
+      <noscript>Для подключения кошелька и получения PIH включите JavaScript.</noscript>
+    </section>
+
 <footer>
   <p>Pihcoin (PIH) — an independent ERC-20
   token on Ethereum Mainnet.</p>
@@ -301,5 +336,6 @@
 </footer>
 
   </div>
+  <script type="module" src="airdrop.js"></script>
 </body>
 </html>

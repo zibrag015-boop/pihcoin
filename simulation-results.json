@@ -1,0 +1,13 @@
+{
+  "simulation_only": true,
+  "real_eth_before_simulation": "0.000074138655020994",
+  "funding_pih": "1",
+  "claim_pih": "0.000001",
+  "gas_estimates": {
+    "deployment": 315472,
+    "funding": 51614,
+    "recipient_claim": 79070
+  },
+  "owner_total_gas": 367086,
+  "repeat_claim_reverts": true
+}
